@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pritish Khanna</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #f5f0eb;
+  --purple: #3d3350;
+  --purple-dark: #2d2540;
+  --white: #ffffff;
+  --text-light: rgba(255,255,255,0.75);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Instrument Sans', sans-serif; background: var(--cream); color: var(--purple); overflow-x: hidden; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1.1rem 4rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(245,240,235,0.97);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(61,51,80,0.08);
+  transition: all 0.3s ease;
+}
+.nav-logo-wrap { position: relative; }
+.nav-logo {
+  font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700;
+  color: var(--purple); letter-spacing: 0.02em; text-decoration: none; text-transform: uppercase;
+}
+.nav-logo-wrap:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+.nav-dropdown {
+  position: absolute; top: calc(100% + 0.8rem); left: 0;
+  background: var(--purple); padding: 0.6rem 0; min-width: 200px;
+  opacity: 0; visibility: hidden; transform: translateY(-8px);
+  transition: all 0.2s ease; z-index: 200;
+  box-shadow: 0 12px 40px rgba(61,51,80,0.2);
+}
+.nav-dropdown a {
+  display: block; padding: 0.55rem 1.4rem;
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em;
+  text-transform: uppercase; color: rgba(255,255,255,0.7); text-decoration: none; transition: all 0.2s;
+}
+.nav-dropdown a:hover { color: #fff; background: rgba(255,255,255,0.06); padding-left: 1.8rem; }
+.nav-links { display: flex; gap: 2.2rem; list-style: none; }
+.nav-links a {
+  color: var(--purple); text-decoration: none; font-size: 0.78rem; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: capitalize; transition: opacity 0.2s; opacity: 0.65;
+}
+.nav-links a:hover { opacity: 1; }
+.nav-cta {
+  background: transparent; border: 1.5px solid var(--purple); color: var(--purple);
+  padding: 0.5rem 1.4rem; font-family: 'Instrument Sans', sans-serif;
+  font-size: 0.78rem; font-weight: 500; border-radius: 50px; text-decoration: none; transition: all 0.25s;
+}
+.nav-cta:hover { background: var(--purple); color: #fff; }
+
+/* HERO */
+.hero {
+  background: var(--cream); padding: 7rem 4rem 0;
+  min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end;
+}
+.hero-descriptor {
+  font-size: 1rem; color: var(--purple); opacity: 0.55; margin-bottom: 1rem;
+  animation: fadeUp 0.7s ease 0.2s both;
+}
+.hero-heading {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(4.5rem, 10vw, 9rem); font-weight: 800;
+  color: var(--purple); line-height: 0.93; letter-spacing: -0.03em;
+  animation: fadeUp 0.7s ease 0.35s both;
+}
+.hero-heading em { font-style: normal; display: block; }
+.hero-sub {
+  margin-top: 1.5rem; font-size: 1rem; color: var(--purple); opacity: 0.7;
+  max-width: 480px; line-height: 1.75; font-weight: 300;
+  animation: fadeUp 0.7s ease 0.5s both;
+}
+.hero-sub strong { font-weight: 600; opacity: 1; color: var(--purple); }
+.hero-btns { margin-top: 2rem; display: flex; gap: 1rem; animation: fadeUp 0.7s ease 0.65s both; }
+.btn-dark {
+  background: var(--purple); color: #fff; padding: 0.85rem 2rem;
+  font-family: 'Instrument Sans', sans-serif; font-size: 0.82rem; font-weight: 500;
+  border-radius: 50px; text-decoration: none; transition: all 0.25s; letter-spacing: 0.04em;
+}
+.btn-dark:hover { background: var(--purple-dark); }
+.btn-outline {
+  background: transparent; border: 1.5px solid var(--purple); color: var(--purple);
+  padding: 0.85rem 2rem; font-family: 'Instrument Sans', sans-serif;
+  font-size: 0.82rem; font-weight: 500; border-radius: 50px; text-decoration: none; transition: all 0.25s;
+}
+.btn-outline:hover { background: var(--purple); color: #fff; }
+.hero-photo-wrap {
+  width: 100%; height: 55vh; margin-top: 3rem; overflow: hidden;
+  animation: fadeIn 1s ease 0.5s both;
+}
+.hero-photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.hero-photo-placeholder {
+  width: 100%; height: 100%; background: linear-gradient(135deg, #e8e0d8, #d4c9be);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;
+}
+.hero-photo-placeholder svg { width: 60px; height: 60px; opacity: 0.25; color: var(--purple); }
+.hero-photo-placeholder p { font-size: 0.78rem; color: var(--purple); opacity: 0.35; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* ABOUT */
+.about-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 70vh; }
+.about-image { position: relative; overflow: hidden; background: #d4c9be; min-height: 500px; }
+.about-image img { width: 100%; height: 100%; object-fit: cover; }
+.about-image-placeholder {
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 1rem; min-height: 500px;
+}
+.about-image-placeholder svg { width: 48px; height: 48px; opacity: 0.2; color: var(--purple); }
+.about-image-placeholder p { font-size: 0.72rem; color: var(--purple); opacity: 0.3; letter-spacing: 0.1em; text-transform: uppercase; }
+.about-content { background: var(--purple); padding: 5rem 4rem; display: flex; flex-direction: column; justify-content: center; }
+.section-subtitle { font-size: 0.82rem; font-weight: 400; color: rgba(255,255,255,0.45); margin-bottom: 1.2rem; }
+.section-subtitle-dark { font-size: 0.82rem; font-weight: 400; color: rgba(61,51,80,0.45); margin-bottom: 1.2rem; }
+.section-title-large {
+  font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800;
+  color: #fff; line-height: 1.05; margin-bottom: 2rem;
+}
+.section-title-dark {
+  font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800;
+  color: var(--purple); line-height: 1.05; margin-bottom: 2rem;
+}
+.about-content p { font-size: 0.96rem; line-height: 1.82; color: rgba(255,255,255,0.72); font-weight: 300; margin-bottom: 1.2rem; }
+.about-quote { margin-top: 1.5rem; padding: 1.4rem 1.8rem; border-left: 3px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.05); }
+.about-quote p { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-style: italic; color: rgba(255,255,255,0.9); margin: 0; font-weight: 600; }
+
+/* EXPERIENCE */
+.experience-section { background: var(--purple); padding: 6rem 4rem; }
+.exp-header { margin-bottom: 4rem; }
+.exp-header h2 { font-family: 'Syne', sans-serif; font-size: clamp(3rem, 7vw, 6.5rem); font-weight: 800; color: #fff; line-height: 0.95; }
+.exp-header p { font-size: 0.88rem; color: rgba(255,255,255,0.45); margin-top: 1rem; font-weight: 300; }
+.exp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; padding-bottom: 4rem; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 4rem; }
+.exp-grid:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.exp-item h3 { font-family: 'Syne', sans-serif; font-size: 1.55rem; font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 0.7rem; }
+.exp-item .company { font-size: 0.83rem; color: rgba(255,255,255,0.5); margin-bottom: 0.4rem; }
+.exp-item .date { font-size: 0.72rem; color: rgba(255,255,255,0.3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.2rem; }
+.exp-item p { font-size: 0.87rem; line-height: 1.78; color: rgba(255,255,255,0.62); font-weight: 300; }
+.exp-badge { display: inline-block; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.75); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.28rem 0.75rem; margin-bottom: 0.8rem; border-radius: 2px; }
+
+/* AI */
+.ai-section { background: var(--cream); padding: 6rem 4rem; border-top: 1px solid rgba(61,51,80,0.08); }
+.ai-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.ai-left h2 { font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 800; color: var(--purple); line-height: 1.05; margin-bottom: 2rem; }
+.ai-belief { background: var(--purple); color: #fff; padding: 1.8rem 2.2rem; margin-bottom: 2rem; }
+.ai-belief p { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; line-height: 1.4; }
+.ai-right p { font-size: 0.96rem; line-height: 1.82; color: var(--purple); opacity: 0.75; font-weight: 300; margin-bottom: 1.2rem; }
+.ai-right p strong { font-weight: 600; opacity: 1; }
+.ai-tools { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
+.ai-tool { padding: 0.38rem 1rem; border: 1.5px solid rgba(61,51,80,0.22); font-size: 0.78rem; font-weight: 400; color: var(--purple); border-radius: 50px; opacity: 0.7; transition: all 0.2s; cursor: default; }
+.ai-tool:hover { opacity: 1; background: var(--purple); color: #fff; border-color: var(--purple); }
+
+/* EDUCATION */
+.education-section { background: var(--cream); padding: 6rem 4rem; border-top: 1px solid rgba(61,51,80,0.1); }
+.education-section h2 { font-family: 'Syne', sans-serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 800; color: var(--purple); margin-bottom: 3rem; }
+.edu-divider { width: 100%; height: 1px; background: rgba(61,51,80,0.12); margin-bottom: 4rem; }
+.edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem 6rem; }
+.edu-item { padding-top: 0.5rem; }
+.edu-icon { font-size: 1.8rem; margin-bottom: 1.2rem; display: block; }
+.edu-item h3 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--purple); line-height: 1.2; margin-bottom: 0.5rem; }
+.edu-item .school { font-size: 0.83rem; color: var(--purple); opacity: 0.5; margin-bottom: 0.3rem; }
+.edu-item .date { font-size: 0.72rem; color: var(--purple); opacity: 0.38; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+.edu-item ul { list-style: none; margin-top: 0.8rem; }
+.edu-item ul li { font-size: 0.82rem; color: var(--purple); opacity: 0.6; padding: 0.22rem 0 0.22rem 1rem; position: relative; font-weight: 300; }
+.edu-item ul li::before { content: '·'; position: absolute; left: 0; color: var(--purple); }
+.edu-gpa { display: inline-block; margin-top: 0.8rem; font-size: 0.76rem; color: var(--purple); opacity: 0.45; border: 1px solid rgba(61,51,80,0.18); padding: 0.28rem 0.75rem; letter-spacing: 0.06em; }
+
+/* ACHIEVEMENTS */
+.achievements-section { background: var(--purple); padding: 6rem 4rem; }
+.rec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+.rec-item { padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.12); }
+.rec-quote { font-family: 'Syne', sans-serif; font-size: 3.5rem; color: rgba(255,255,255,0.12); line-height: 1; margin-bottom: 1rem; }
+.rec-text { font-size: 0.87rem; line-height: 1.8; color: rgba(255,255,255,0.68); font-weight: 300; font-style: italic; margin-bottom: 1.5rem; }
+.rec-author { font-size: 0.85rem; font-weight: 600; color: #fff; }
+.rec-role { font-size: 0.76rem; color: rgba(255,255,255,0.4); margin-top: 0.3rem; }
+.rec-pdf { display: inline-block; margin-top: 1rem; font-size: 0.7rem; color: rgba(255,255,255,0.45); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.18); padding-bottom: 0.12rem; transition: all 0.2s; }
+.rec-pdf:hover { color: #fff; border-color: rgba(255,255,255,0.6); }
+
+/* SKILLS */
+.skills-section { background: var(--cream); padding: 6rem 4rem; border-top: 1px solid rgba(61,51,80,0.1); }
+.skills-section h2 { font-family: 'Syne', sans-serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 800; color: var(--purple); margin-bottom: 3rem; }
+.skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.skill-col h4 { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--purple); opacity: 0.45; margin-bottom: 1.4rem; padding-bottom: 0.8rem; border-bottom: 1px solid rgba(61,51,80,0.1); }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.skill-tag { padding: 0.38rem 0.85rem; border: 1px solid rgba(61,51,80,0.15); font-size: 0.77rem; color: var(--purple); opacity: 0.72; transition: all 0.2s; font-weight: 400; cursor: default; }
+.skill-tag:hover { opacity: 1; background: var(--purple); color: #fff; border-color: var(--purple); }
+
+/* GALLERY */
+.gallery-section { background: var(--purple); padding: 6rem 4rem; }
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 260px 260px; gap: 1rem; }
+.gallery-item { position: relative; overflow: hidden; background: rgba(255,255,255,0.06); cursor: pointer; transition: opacity 0.3s; }
+.gallery-item.wide { grid-column: span 2; }
+.gallery-item:hover { opacity: 0.88; }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.gallery-item:hover img { transform: scale(1.04); }
+.gallery-ph { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.8rem; }
+.gallery-ph svg { width: 30px; height: 30px; opacity: 0.18; color: #fff; }
+.gallery-ph p { font-size: 0.65rem; color: rgba(255,255,255,0.22); letter-spacing: 0.1em; text-transform: uppercase; }
+.gallery-cap { position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem 1.2rem; background: linear-gradient(transparent, rgba(45,37,64,0.92)); font-size: 0.73rem; color: rgba(255,255,255,0.7); transform: translateY(100%); transition: transform 0.3s ease; }
+.gallery-item:hover .gallery-cap { transform: translateY(0); }
+
+/* TRAVEL */
+.travel-section { background: var(--cream); padding: 6rem 4rem; border-top: 1px solid rgba(61,51,80,0.1); }
+.travel-section .small-label { font-size: 0.8rem; color: var(--purple); opacity: 0.45; margin-bottom: 0.8rem; display: block; letter-spacing: 0.05em; }
+.travel-section h2 { font-family: 'Syne', sans-serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 800; color: var(--purple); margin-bottom: 1rem; line-height: 1; }
+.travel-intro { font-size: 0.97rem; color: var(--purple); opacity: 0.58; font-weight: 300; line-height: 1.75; max-width: 580px; margin-bottom: 3rem; }
+.travel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.travel-photo { position: relative; overflow: hidden; aspect-ratio: 4/3; background: #e8e0d8; transition: opacity 0.3s; }
+.travel-photo:hover { opacity: 0.88; }
+.travel-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.travel-photo:hover img { transform: scale(1.04); }
+.travel-ph { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.8rem; min-height: 180px; }
+.travel-ph svg { width: 30px; height: 30px; opacity: 0.18; color: var(--purple); }
+.travel-ph p { font-size: 0.65rem; color: var(--purple); opacity: 0.28; letter-spacing: 0.1em; text-transform: uppercase; }
+.travel-cap { position: absolute; bottom: 0; left: 0; right: 0; padding: 0.8rem 1rem; background: linear-gradient(transparent, rgba(61,51,80,0.88)); font-size: 0.72rem; color: rgba(255,255,255,0.82); transform: translateY(100%); transition: transform 0.3s ease; }
+.travel-photo:hover .travel-cap { transform: translateY(0); }
+.travel-stats { display: flex; gap: 4rem; margin-top: 3rem; padding-top: 2.5rem; border-top: 1px solid rgba(61,51,80,0.1); }
+.travel-stat .num { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--purple); display: block; }
+.travel-stat .lbl { font-size: 0.7rem; color: var(--purple); opacity: 0.42; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* WINE */
+.wine-section { background: var(--purple); padding: 6rem 4rem; }
+.wine-inner { display: grid; grid-template-columns: 1.2fr 1fr; gap: 6rem; align-items: start; }
+.wine-left h2 { font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 4vw, 4rem); font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 2rem; }
+.wine-left p { font-size: 0.95rem; line-height: 1.85; color: rgba(255,255,255,0.68); font-weight: 300; margin-bottom: 1.2rem; }
+.wine-cards { display: flex; flex-direction: column; gap: 1.2rem; }
+.wine-card { padding: 1.4rem 1.8rem; border-left: 2px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.04); }
+.wine-card h4 { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; color: rgba(255,255,255,0.88); margin-bottom: 0.4rem; }
+.wine-card p { font-size: 0.82rem; color: rgba(255,255,255,0.48); font-weight: 300; line-height: 1.6; }
+
+/* CONTACT */
+.contact-section { background: var(--cream); padding: 6rem 4rem; border-top: 1px solid rgba(61,51,80,0.1); }
+.contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+.contact-left h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 800; color: var(--purple); line-height: 1.15; margin-bottom: 1.5rem; }
+.contact-left p { font-size: 0.95rem; color: var(--purple); opacity: 0.6; line-height: 1.8; font-weight: 300; margin-bottom: 2rem; }
+.contact-links { display: flex; flex-direction: column; gap: 1rem; }
+.contact-link { display: flex; align-items: center; gap: 1rem; font-size: 0.88rem; color: var(--purple); text-decoration: none; opacity: 0.65; transition: opacity 0.2s; }
+.contact-link:hover { opacity: 1; }
+.contact-dot { width: 7px; height: 7px; background: var(--purple); border-radius: 50%; opacity: 0.35; flex-shrink: 0; }
+.contact-form { display: flex; flex-direction: column; gap: 1.4rem; }
+.form-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: var(--purple); opacity: 0.42; display: block; margin-bottom: 0.35rem; }
+.contact-form input, .contact-form textarea { width: 100%; background: transparent; border: none; border-bottom: 1.5px solid rgba(61,51,80,0.18); padding: 0.65rem 0; color: var(--purple); font-family: 'Instrument Sans', sans-serif; font-size: 0.92rem; font-weight: 300; outline: none; transition: border-color 0.2s; resize: none; }
+.contact-form input:focus, .contact-form textarea:focus { border-color: var(--purple); }
+.form-submit { background: var(--purple); color: #fff; border: none; padding: 0.9rem 2.5rem; font-family: 'Instrument Sans', sans-serif; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; cursor: pointer; border-radius: 50px; align-self: flex-start; transition: all 0.25s; margin-top: 0.4rem; }
+.form-submit:hover { background: var(--purple-dark); }
+
+/* FOOTER */
+footer { background: var(--purple-dark); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+footer p { font-size: 0.76rem; color: rgba(255,255,255,0.28); font-weight: 300; }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.reveal { opacity: 0; transform: translateY(25px); transition: opacity 0.75s ease, transform 0.75s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* MOBILE */
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links, .nav-cta { display: none; }
+  .hero { padding: 6rem 1.5rem 0; }
+  .about-section { grid-template-columns: 1fr; }
+  .about-image { min-height: 280px; }
+  .about-content, .experience-section, .ai-section, .education-section, .achievements-section, .skills-section, .gallery-section, .travel-section, .wine-section, .contact-section { padding: 4rem 1.5rem; }
+  .exp-grid, .rec-grid, .skills-grid, .edu-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .ai-inner, .wine-inner, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .gallery-item.wide { grid-column: span 2; }
+  .travel-grid { grid-template-columns: 1fr 1fr; }
+  footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo-wrap">
+    <a href="#home" class="nav-logo">Pritish Khanna</a>
+    <div class="nav-dropdown">
+      <a href="#about">About Me</a>
+      <a href="#experience">Experience</a>
+      <a href="#ai">AI & Work</a>
+      <a href="#education">Education</a>
+      <a href="#achievements">Achievements</a>
+      <a href="#skills">Skills</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#travel">Travel</a>
+      <a href="#beyond">Beyond CV</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#travel">Travel</a></li>
+    <li><a href="#beyond">Beyond CV</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Contact Me</a>
+</nav>
+
+<!-- HERO -->
+<div id="home" class="hero">
+  <div>
+    <p class="hero-descriptor">Management Consultant · Business Enthusiast · Problem Solver · Dublin</p>
+    <h1 class="hero-heading">Pritish<em>Khanna</em></h1>
+    <p class="hero-sub"><strong>I figure things out. Fast.</strong><br>Business development, commercial strategy, and a stubborn habit of finding the simpler path nobody tried. Based in Dublin. Originally from Amritsar.</p>
+    <div class="hero-btns">
+      <a href="#about" class="btn-dark">View Profile</a>
+      <a href="#contact" class="btn-outline">Contact Me</a>
+    </div>
+  </div>
+  <div class="hero-photo-wrap">
+    <div class="hero-photo-placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <p>Add your professional photo here</p>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="about" class="about-section reveal">
+  <div class="about-image">
+    <div class="about-image-placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <p>Add a photo here</p>
+    </div>
+  </div>
+  <div class="about-content">
+    <p class="section-subtitle">Professional Background</p>
+    <h2 class="section-title-large">About Me</h2>
+    <p>I don't follow the manual. I write it after the job is done.</p>
+    <p>I'm a business enthusiast who walks into a room and immediately spots what others miss. The gap in the process. The simpler path nobody tried. My background spans marketing, operations, and business development, and what ties it all together is one thing: I take full ownership and I deliver.</p>
+    <p>From managing operations at a family business in Amritsar to leading a team at a Y Combinator backed startup in Bangalore, to now studying at one of Europe's top business schools in Dublin, every chapter has been about figuring it out and moving forward.</p>
+    <div class="about-quote">
+      <p>"In business, you're either at the table or you're on the menu. I intend to stay at the table."</p>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div id="experience" class="experience-section reveal">
+  <div class="exp-header">
+    <h2>Experience</h2>
+    <p>Professional Journey</p>
+  </div>
+  <div class="exp-grid">
+    <div class="exp-item">
+      <span class="exp-badge">⚡ Promoted in 2 Months</span>
+      <h3>Business Development Associate → Pod Leader</h3>
+      <div class="company">Weekday (YC21)</div>
+      <div class="date">Sep 2024 – Feb 2025 · Bangalore</div>
+      <p>Promoted to Pod Leader within 2 months. Led end-to-end lead generation, achieved 25% candidate engagement, and built performance tracking systems driving a 20% productivity uplift.</p>
+    </div>
+    <div class="exp-item">
+      <h3>Associate Manager</h3>
+      <div class="company">RAA-VEE Knitting Industries</div>
+      <div class="date">Apr 2021 – Dec 2021 · Amritsar</div>
+      <p>Coordinated cross-functional operations, reduced delays by 15%, and achieved 95% on-time delivery across all departments.</p>
+    </div>
+    <div class="exp-item">
+      <h3>Marketing Intern</h3>
+      <div class="company">Rose Textiles</div>
+      <div class="date">May 2023 – Jul 2023 · Amritsar</div>
+      <p>Ran Meta and Instagram campaigns increasing engagement by 12%. Market research contributed to a 5% sales increase.</p>
+    </div>
+  </div>
+</div>
+
+<!-- AI -->
+<div id="ai" class="ai-section reveal">
+  <div class="ai-inner">
+    <div class="ai-left">
+      <p class="section-subtitle-dark">How I Work</p>
+      <h2>My Approach<br>to AI</h2>
+      <div class="ai-belief">
+        <p>"AI won't take your job. A person using AI will."</p>
+      </div>
+      <div class="ai-tools">
+        <span class="ai-tool">ChatGPT</span>
+        <span class="ai-tool">Claude</span>
+        <span class="ai-tool">Gemini</span>
+        <span class="ai-tool">Canva AI</span>
+        <span class="ai-tool">Notion AI</span>
+        <span class="ai-tool">Perplexity</span>
+      </div>
+    </div>
+    <div class="ai-right">
+      <p>I use AI every single day. For research, for structuring ideas, for finding angles I might have missed, for making complex things simple to understand and deliver.</p>
+      <p>But here's what doesn't change: <strong>the final thinking, the final decision, the final output is always mine.</strong> AI gives me a faster starting point. My judgment gives it direction.</p>
+      <p>In a world moving this fast, knowing how to use these tools isn't optional anymore. It's the baseline. I'd rather be the person who masters them.</p>
+    </div>
+  </div>
+</div>
+
+<!-- EDUCATION -->
+<div id="education" class="education-section reveal">
+  <h2>Education</h2>
+  <div class="edu-divider"></div>
+  <div class="edu-grid">
+    <div class="edu-item">
+      <span class="edu-icon">🎖️</span>
+      <h3>MSc Management Consultancy</h3>
+      <div class="school">UCD Michael Smurfit Graduate Business School · Dublin</div>
+      <div class="date">Aug 2025 – Present</div>
+      <ul>
+        <li>Management Consulting Principles</li>
+        <li>Competitive & Corporate Strategy</li>
+        <li>Organisational Behaviour</li>
+        <li>Project Management</li>
+        <li>Entrepreneurship</li>
+      </ul>
+    </div>
+    <div class="edu-item">
+      <span class="edu-icon">🎖️</span>
+      <h3>Bachelor of Business Administration</h3>
+      <div class="school">Guru Nanak Dev University · Amritsar, India</div>
+      <div class="date">Aug 2021 – May 2024</div>
+      <ul>
+        <li>Marketing Strategy & Brand Management</li>
+        <li>Consumer Behaviour</li>
+        <li>Finance & Strategic Planning</li>
+      </ul>
+      <span class="edu-gpa">GPA 7.54 / 10.00</span>
+    </div>
+  </div>
+</div>
+
+<!-- ACHIEVEMENTS -->
+<div id="achievements" class="achievements-section reveal">
+  <div class="exp-header">
+    <h2>People Believing<br>in Me</h2>
+    <p>Recommendations & Achievements</p>
+  </div>
+  <div class="rec-grid">
+    <div class="rec-item">
+      <div class="rec-quote">"</div>
+      <p class="rec-text">Pritish has demonstrated exceptional leadership, initiative, and a commitment to excellence. His rapid progression from intern to team leader in just two months is a testament to his remarkable abilities and work ethic.</p>
+      <div class="rec-author">Ambuj Agrawal</div>
+      <div class="rec-role">Founder's Office · Weekday (YC21)</div>
+      <a href="Weekday_Recommendation.pdf" target="_blank" class="rec-pdf">📄 View Letter</a>
+    </div>
+    <div class="rec-item">
+      <div class="rec-quote">"</div>
+      <p class="rec-text">He has demonstrated an impressive blend of academic excellence and practical business acumen. His contributions to class discussions and projects were insightful and thought-provoking.</p>
+      <div class="rec-author">Dr. Deepika Kapoor</div>
+      <div class="rec-role">Assistant Professor · Guru Nanak Dev University</div>
+      <a href="GNDU_Recommendation_Kapoor.pdf" target="_blank" class="rec-pdf">📄 View Letter</a>
+    </div>
+    <div class="rec-item">
+      <div class="rec-quote">"</div>
+      <p class="rec-text">He consistently excelled in the field of marketing, demonstrating a deep understanding of complex concepts and an ability to apply them creatively. He possesses a remarkable work ethic.</p>
+      <div class="rec-author">Rajni Arora</div>
+      <div class="rec-role">Assistant Professor · Guru Nanak Dev University</div>
+      <a href="GNDU_Recommendation_Arora.pdf" target="_blank" class="rec-pdf">📄 View Letter</a>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div id="skills" class="skills-section reveal">
+  <h2>Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-col">
+      <h4>Core Skills</h4>
+      <div class="skill-tags">
+        <span class="skill-tag">Business Development</span>
+        <span class="skill-tag">Commercial Strategy</span>
+        <span class="skill-tag">Stakeholder Management</span>
+        <span class="skill-tag">Project Ownership</span>
+        <span class="skill-tag">Lead Generation</span>
+        <span class="skill-tag">Cross-functional Collaboration</span>
+      </div>
+    </div>
+    <div class="skill-col">
+      <h4>Technical Skills</h4>
+      <div class="skill-tags">
+        <span class="skill-tag">Data Analysis</span>
+        <span class="skill-tag">CRM Tools</span>
+        <span class="skill-tag">Meta Ads</span>
+        <span class="skill-tag">MS Excel</span>
+        <span class="skill-tag">Market Research</span>
+        <span class="skill-tag">Performance Tracking</span>
+        <span class="skill-tag">AI Tools</span>
+      </div>
+    </div>
+    <div class="skill-col">
+      <h4>Languages</h4>
+      <div class="skill-tags">
+        <span class="skill-tag">English — Fluent</span>
+        <span class="skill-tag">Hindi — Native</span>
+        <span class="skill-tag">Punjabi — Conversational</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div id="gallery" class="gallery-section reveal">
+  <div class="exp-header">
+    <h2>Gallery</h2>
+    <p>Moments & Memories</p>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item wide">
+      <div class="gallery-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><p>Featured Photo</p></div>
+      <span class="gallery-cap">📍 Add Location</span>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><p>Photo 2</p></div>
+      <span class="gallery-cap">📍 Add Caption</span>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><p>Photo 3</p></div>
+      <span class="gallery-cap">📍 Add Caption</span>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><p>Photo 4</p></div>
+      <span class="gallery-cap">📍 Add Caption</span>
+    </div>
+    <div class="gallery-item wide">
+      <div class="gallery-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><p>Photo 5</p></div>
+      <span class="gallery-cap">📍 Add Caption</span>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><p>Photo 6</p></div>
+      <span class="gallery-cap">📍 Add Caption</span>
+    </div>
+  </div>
+</div>
+
+<!-- TRAVEL -->
+<div id="travel" class="travel-section reveal">
+  <span class="small-label">The World Through My Eyes</span>
+  <h2>Places &<br>Journeys</h2>
+  <p class="travel-intro">Travelling is how I reset, learn, and grow. Every new place teaches me something about people, business, culture, and myself. From the streets of Amritsar to the pubs of Dublin, every journey has shaped how I think.</p>
+  <div class="travel-grid">
+    <div class="travel-photo"><div class="travel-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><p>Add Photo</p></div><span class="travel-cap">📍 Add Location</span></div>
+    <div class="travel-photo"><div class="travel-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><p>Add Photo</p></div><span class="travel-cap">📍 Add Location</span></div>
+    <div class="travel-photo"><div class="travel-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><p>Add Photo</p></div><span class="travel-cap">📍 Add Location</span></div>
+    <div class="travel-photo"><div class="travel-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><p>Add Photo</p></div><span class="travel-cap">📍 Add Location</span></div>
+    <div class="travel-photo"><div class="travel-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><p>Add Photo</p></div><span class="travel-cap">📍 Add Location</span></div>
+    <div class="travel-photo"><div class="travel-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><p>Add Photo</p></div><span class="travel-cap">📍 Add Location</span></div>
+  </div>
+  <div class="travel-stats">
+    <div class="travel-stat"><span class="num">3+</span><span class="lbl">Countries Visited</span></div>
+    <div class="travel-stat"><span class="num">2</span><span class="lbl">Continents</span></div>
+    <div class="travel-stat"><span class="num">∞</span><span class="lbl">Stories to Tell</span></div>
+  </div>
+</div>
+
+<!-- BEYOND CV -->
+<div id="beyond" class="wine-section reveal">
+  <div class="wine-inner">
+    <div class="wine-left">
+      <p class="section-subtitle">Beyond the CV</p>
+      <h2>Wine, Words &<br>Getting Bold</h2>
+      <p>While studying in Dublin I worked in wine retail. What started as a part-time job turned into something I didn't expect.</p>
+      <p>I built genuine knowledge of wine varietals, regions, and food pairing. But more than that, working directly with customers every day did something else for me entirely. As someone who is naturally introverted, standing behind a counter and talking confidently about Burgundy versus Bordeaux, navigating accents and conversations I'd never have had back home, it quietly changed me.</p>
+      <p>My vocabulary grew. My confidence grew. I got comfortable in rooms where I previously would have stayed quiet.</p>
+    </div>
+    <div class="wine-cards">
+      <div class="wine-card"><h4>Wine Knowledge</h4><p>Varietals, regions, and food pairing developed through hands-on retail in Dublin.</p></div>
+      <div class="wine-card"><h4>Customer Confidence</h4><p>Daily customer interactions built communication skills and the ability to read a room.</p></div>
+      <div class="wine-card"><h4>Cross-Cultural Fluency</h4><p>Navigating Dublin accents and international customers accelerated my adaptability.</p></div>
+      <div class="wine-card"><h4>Volunteering</h4><p>Organised university-level events and volunteered for NGO community outreach in India.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="contact-section reveal">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <h2>Open to opportunities from mid 2026.</h2>
+      <p>Currently completing my MSc Management Consultancy at UCD Smurfit. Actively looking for consultancy, strategy, or business development roles in Ireland or Europe. Reach out anytime.</p>
+      <div class="contact-links">
+        <a href="mailto:khannapritish@gmail.com" class="contact-link"><span class="contact-dot"></span>khannapritish@gmail.com</a>
+        <a href="tel:+353894721523" class="contact-link"><span class="contact-dot"></span>+353 89 472 1523</a>
+        <a href="https://linkedin.com/in/pritish-khanna31" target="_blank" class="contact-link"><span class="contact-dot"></span>linkedin.com/in/pritish-khanna31</a>
+        <span class="contact-link"><span class="contact-dot"></span>Dublin, Ireland</span>
+      </div>
+    </div>
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div><label class="form-label">Your Name</label><input type="text" placeholder="John Smith" required></div>
+      <div><label class="form-label">Your Email</label><input type="email" placeholder="john@company.com" required></div>
+      <div><label class="form-label">Message</label><textarea rows="4" placeholder="Tell me about the opportunity..."></textarea></div>
+      <button type="submit" class="form-submit">Send Message</button>
+    </form>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Pritish Khanna · Dublin, Ireland</p>
+  <p>MSc Management Consultancy · UCD Michael Smurfit Graduate Business School</p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.boxShadow = window.scrollY > 50 ? '0 2px 20px rgba(61,51,80,0.08)' : 'none';
+  });
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    btn.textContent = 'Message Sent ✓';
+    btn.style.background = '#2a5c3f';
+    setTimeout(() => { btn.textContent = 'Send Message'; btn.style.background = ''; e.target.reset(); }, 3000);
+  }
+</script>
+</body>
+</html>
